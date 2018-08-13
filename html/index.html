@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<link href="index.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="container">
+		<div class="head">
+			Crafting Menu
+		</div>
+		<div class="subtitle">
+			SELECT INGREDIENTS
+		</div>
+		<div class="ingredients iqdropdown">
+			<p class="iqdropdown-selection"></p>
+			<ul class="iqdropdown-menu">
+			</ul>
+		</div>
+		<button type="button" onclick="craftItems()"><strong>CRAFT ITEM</strong></button>
+	</div>
+	<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var ingredients = {};
+		function craftItems() {
+			$.post('http://salty_crafting/craftItemNUI', JSON.stringify(ingredients));
+			$.post('http://salty_crafting/NUIFocusOff');
+		}
+		$(document).ready(function () {
+			
+		});
+		$(function(){
+			window.onload = function(e){
+				window.addEventListener('message', function(event){
+					var item = event.data;
+					console.log("Received data")
+					if (item.display === true) {
+						$( ".iqdropdown-menu" ).empty();
+						$(".ingredients").unbind();
+						ingredients = {};
+						for (var i = 0; i < item.inventory.length; i++) {
+							var obj = item.inventory[i]
+							$( ".iqdropdown-menu" ).append('<li data-id="' + obj.name + '" data-maxcount=' + obj.count + '><div> ' + obj.label + '<span>Add ' + obj.label + ' to your ingredients list.</span> </div></li>');
+							//Do something
+						}
+						$(".ingredients").iqDropdown({
+							selectionText: 'ingredient',
+							textPlural: 'ingredients',
+							onChange: function (id, count, totalItems) {
+								ingredients[id] = count
+							},
+						});
+						$('.container').show()
+					} else if (item.display === false) {
+						$('.container').hide();
+					}
+				});
+				
+				document.onkeyup = function (data) {
+					if (data.which == 27) { // Escape key
+						$.post('http://salty_crafting/NUIFocusOff');
+					}
+				};
+			};
+		});
+	</script> 
+	
+	<script type="text/javascript" src="item-quantity-dropdown.min.js"></script>
+</body>
+</html>
