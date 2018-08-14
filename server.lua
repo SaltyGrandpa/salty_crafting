@@ -67,7 +67,9 @@ AddEventHandler('salty_crafting:craftItem', function(ingredients)
 		if xPlayer ~= nil then
 			if hasAllIngredients(xPlayer.inventory, Config.Recipes[item]) then
 				for _,ingredient in pairs(Config.Recipes[item]) do
-					xPlayer.removeInventoryItem(ingredient.item, ingredient.quantity)
+					if (ingredient.remove ~= nil and ingredient.remove) or (ingredient.remove == nil) then
+						xPlayer.removeInventoryItem(ingredient.item, ingredient.quantity)
+					end
 				end
 				if string.match(string.lower(item), "weapon_") then
 					xPlayer.addWeapon(item)
