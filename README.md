@@ -14,10 +14,10 @@ The configuration of this resource is done entirely in the `config.lua` file.
 Recipes are defined in tables with the following structure:
 ```lua
 ['resultingItemName'] = {
-    { item = "ingredient1", quantity = 2 },
+    { item = "ingredient1", quantity = 2, remove = true },
     { item = "ingredient2", quantity = 3 },
 },
 ```
-In the example above, the resultingItemName requires two "ingredient1" and three "ingredient2". *NOTE:* These are all based on the `name` field of the item in the database, not the `label` field. There is no limit on the amount of recipes you can create, nor the amount of ingredients each recipe can have.
+In the example above, the resultingItemName requires two "ingredient1" and three "ingredient2". *NOTE:* These are all based on the `name` field of the item in the database, not the `label` field. There is no limit on the amount of recipes you can create, nor the amount of ingredients each recipe can have. The `remove` parameter is optional. `remove = false` will prevent the ingredient item from being removed from the player's inventory. `remove` will default to `true` if not specified.
 
 The Crafting Menu can be made available either through a "store" where a player must visit a specified location on the map, or through a keyboard shortcut. Both of these options may be configured through the `config.lua` file.
