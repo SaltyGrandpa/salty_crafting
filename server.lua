@@ -4,7 +4,7 @@ TriggerEvent('esx:getSharedObject', function(obj) ESX = obj end)
 RegisterServerEvent('salty_crafting:getPlayerInventory')
 AddEventHandler('salty_crafting:getPlayerInventory', function()
 	local _source = source
-	local xPlayer = ESX.GetPlayerFromId(source)
+	local xPlayer = ESX.GetPlayerFromId(_source)
 	if xPlayer ~= nil then
 		TriggerClientEvent('salty_crafting:openMenu', _source, xPlayer.inventory)
 	end
