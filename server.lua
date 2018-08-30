@@ -72,7 +72,7 @@ AddEventHandler('salty_crafting:craftItem', function(ingredients)
 					end
 				end
 				if string.match(string.lower(item), "weapon_") then
-					xPlayer.addWeapon(item)
+					xPlayer.addWeapon(item, Config.WeaponAmmo)
 				else
 					xPlayer.addInventoryItem(item, 1)
 				end
