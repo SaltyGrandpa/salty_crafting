@@ -1,5 +1,8 @@
 Config = {}
 
+-- Ammo given by default to crafted weapons
+Config.WeaponAmmo = 42
+
 Config.Recipes = {
 	-- Can be a normal ESX item
 	["lockpick"] = { 
